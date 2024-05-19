@@ -68,51 +68,31 @@ public class MapEngine {
     // add code here
     // get the country name from the user
     MessageCli.INSERT_COUNTRY.printMessage();
+    String countryName = getValidCountry();
+    MessageCli.COUNTRY_INFO.printMessage(
+        countryName, countiresInfo.get(countryName).get(0), countiresInfo.get(countryName).get(1));
+  }
+
+  private String getValidCountry() {
     while (true) {
       try {
-        String country = Utils.scanner.nextLine();
-        String countryName = capitalizeFirstLetterOfEachWord(country);
-        getCountryInfo(countryName);
-        MessageCli.COUNTRY_INFO.printMessage(
-            countryName,
-            countiresInfo.get(countryName).get(0),
-            countiresInfo.get(countryName).get(1));
+        country = Utils.scanner.nextLine();
+        country = capitalizeFirstLetterOfEachWord(country);
+        validateCountryExists(country);
         break;
       } catch (CountryNotFoundException e) {
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
       }
     }
+    return country;
   }
 
-  private void getCountryInfo(String countryName) throws CountryNotFoundException {
-    if (!countiresInfo.containsKey(countryName)) {
-      throw new CountryNotFoundException(countryName);
+  private void validateCountryExists(String country) throws CountryNotFoundException {
+    if (!countiresInfo.containsKey(country)) {
+      throw new CountryNotFoundException(country);
     }
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {
-    MessageCli.INSERT_SOURCE.printMessage();
-    while (true) {
-      try {
-        source = Utils.scanner.nextLine();
-        source = capitalizeFirstLetterOfEachWord(source);
-        getCountryInfo(source);
-        break;
-      } catch (CountryNotFoundException e) {
-        MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
-      }
-    }
-    MessageCli.INSERT_DESTINATION.printMessage();
-    while (true) {
-      try {
-        destination = Utils.scanner.nextLine();
-        destination = capitalizeFirstLetterOfEachWord(destination);
-        getCountryInfo(destination);
-        break;
-      } catch (CountryNotFoundException e) {
-        MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
-      }
-    }
-  }
+  public void showRoute() {}
 }
