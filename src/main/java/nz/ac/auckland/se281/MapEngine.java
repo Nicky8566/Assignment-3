@@ -94,6 +94,9 @@ public class MapEngine {
     if (!countiresInfo.containsKey(country)) {
       throw new CountryNotFoundException(country);
     }
+    if (!isValidCountryName(country)) {
+      throw new IllegalArgumentException(country);
+    }
   }
 
   private boolean isValidCountryName(String country) {
@@ -102,6 +105,7 @@ public class MapEngine {
         return false;
       }
     }
+
     return true;
   }
 
