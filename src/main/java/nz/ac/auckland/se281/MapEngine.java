@@ -4,6 +4,7 @@ import static nz.ac.auckland.se281.Utils.capitalizeFirstLetterOfEachWord;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,9 @@ import nz.ac.auckland.se281.Exceptions.CountryNotFoundException;
 public class MapEngine {
   private Map<String, List<String>> countiresInfo;
   private Map<String, List<String>> adjacenciesInfo;
+  // make a new hashset for the visisted continets
+  private HashSet<String> visitedContinents;
+  private int totalTaxFees;
 
   public MapEngine() {
     // add other code here if you want
@@ -95,9 +99,9 @@ public class MapEngine {
     String source = getValidCountry();
     MessageCli.INSERT_DESTINATION.printMessage();
     String destination = getValidCountry();
-    // test for now
-    System.out.println("Route from " + source + " to " + destination);
-    System.out.println(shortestPathBFS(source, destination));
+    MessageCli.ROUTE_INFO.printMessage(shortestPathBFS(source, destination).toString());
+    MessageCli.CONTINENT_INFO.printMessage(visitedContinents.toString());
+    MessageCli.TAX_INFO.printMessage(Integer.toString(totalTaxFees));
   }
 
   public List<String> shortestPathBFS(String start, String end) {
@@ -106,6 +110,8 @@ public class MapEngine {
     Map<String, Boolean> visited = new HashMap<>(); // Tracks visited nodes
 
     // Start with the path containing only the start node
+    visitedContinents = new HashSet<>();
+    totalTaxFees = 0;
     List<String> startPath = new ArrayList<>();
     startPath.add(start);
     queue.add(startPath);
@@ -119,6 +125,10 @@ public class MapEngine {
 
       // Check if the last node is the target node and return the path
       if (lastNode.equals(end)) {
+        for (String country : currentPath) {
+          visitedContinents.add(countiresInfo.get(country).get(0));
+          totalTaxFees += Integer.parseInt(countiresInfo.get(country).get(1));
+        }
         return currentPath;
       }
 
