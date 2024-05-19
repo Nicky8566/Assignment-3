@@ -5,6 +5,7 @@ import static nz.ac.auckland.se281.Utils.capitalizeFirstLetterOfEachWord;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -109,9 +110,10 @@ public class MapEngine {
     Queue<List<String>> queue = new LinkedList<>(); // Queue to hold paths
     Map<String, Boolean> visited = new HashMap<>(); // Tracks visited nodes
 
-    // Start with the path containing only the start node
-    visitedContinents = new HashSet<>();
+    // setup visited contients and total tax fees for the additional info
+    visitedContinents = new LinkedHashSet<>();
     totalTaxFees = 0;
+    // Start with the path containing only the start node
     List<String> startPath = new ArrayList<>();
     startPath.add(start);
     queue.add(startPath);
@@ -127,6 +129,9 @@ public class MapEngine {
       if (lastNode.equals(end)) {
         for (String country : currentPath) {
           visitedContinents.add(countiresInfo.get(country).get(0));
+          if (country == start) {
+            continue;
+          }
           totalTaxFees += Integer.parseInt(countiresInfo.get(country).get(1));
         }
         return currentPath;
