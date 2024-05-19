@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import nz.ac.auckland.se281.Exceptions.CountryNotFoundException;
 
 /** This class is the main entry point. */
 public class MapEngine {
@@ -60,7 +61,24 @@ public class MapEngine {
   public void showInfoCountry() {
     // add code here
     // get the country name from the user
+    MessageCli.INSERT_COUNTRY.printMessage();
+    while (true) {
+      try {
+        String countryName = Utils.scanner.nextLine();
+        List<String> countryInfo = getCountryInfo(countryName);
+        MessageCli.COUNTRY_INFO.printMessage(countryName, countryInfo.get(0), countryInfo.get(1));
+        break;
+      } catch (CountryNotFoundException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
+      }
+    }
+  }
 
+  private List<String> getCountryInfo(String countryName) throws CountryNotFoundException {
+    if (!countiresInfo.containsKey(countryName)) {
+      throw new CountryNotFoundException("Country not found: " + countryName);
+    }
+    return countiresInfo.get(countryName);
   }
 
   /** this method is invoked when the user run the command route. */
