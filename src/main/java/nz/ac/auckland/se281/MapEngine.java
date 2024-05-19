@@ -100,6 +100,10 @@ public class MapEngine {
     String source = getValidCountry();
     MessageCli.INSERT_DESTINATION.printMessage();
     String destination = getValidCountry();
+    if (destination.equals(source)) {
+      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+      return;
+    }
     MessageCli.ROUTE_INFO.printMessage(shortestPathBFS(source, destination).toString());
     MessageCli.CONTINENT_INFO.printMessage(visitedContinents.toString());
     MessageCli.TAX_INFO.printMessage(Integer.toString(totalTaxFees));
