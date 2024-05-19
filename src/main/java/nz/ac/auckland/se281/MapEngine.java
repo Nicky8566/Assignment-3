@@ -4,8 +4,10 @@ import static nz.ac.auckland.se281.Utils.capitalizeFirstLetterOfEachWord;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import nz.ac.auckland.se281.Exceptions.CountryNotFoundException;
 
 // import the utils method to capitalize the first letter of each word
@@ -95,5 +97,44 @@ public class MapEngine {
     String destination = getValidCountry();
     // test for now
     System.out.println("Route from " + source + " to " + destination);
+    System.out.println(shortestPathBFS(source, destination));
+  }
+
+  public List<String> shortestPathBFS(String start, String end) {
+    List<String> path = new ArrayList<>();
+    Queue<List<String>> queue = new LinkedList<>(); // Queue to hold paths
+    Map<String, Boolean> visited = new HashMap<>(); // Tracks visited nodes
+
+    // Start with the path containing only the start node
+    List<String> startPath = new ArrayList<>();
+    startPath.add(start);
+    queue.add(startPath);
+    visited.put(start, true);
+
+    while (!queue.isEmpty()) {
+      // grab and remove first element from queue
+      List<String> currentPath = queue.poll();
+      // get the last node
+      String lastNode = currentPath.get(currentPath.size() - 1);
+
+      // Check if the last node is the target node and return the path
+      if (lastNode.equals(end)) {
+        return currentPath;
+      }
+
+      // Explore the nodes neighbours/adjacent nodes
+      for (String neighbor : adjacenciesInfo.get(lastNode)) {
+        if (!visited.containsKey(neighbor)) { // Check if the neighbor has been visited
+          visited.put(neighbor, true);
+          // Create a new path to check by adding this current node that isnt checked
+          List<String> newPath = new ArrayList<>(currentPath);
+          newPath.add(neighbor);
+          // will check if this path is the shortest path
+          queue.add(newPath);
+        }
+      }
+    }
+    // Return empty path if no path exists
+    return path;
   }
 }
