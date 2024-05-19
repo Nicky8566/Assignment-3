@@ -60,9 +60,7 @@ public class MapEngine {
   public void showInfoCountry() {
     // add code here
     // get the country name from the user
-    String countryName = Utils.scanner.nextLine();
-    MessageCli.COUNTRY_INFO.printMessage(
-        countryName, countiresInfo.get(countryName).get(0), countiresInfo.get(countryName).get(1));
+
   }
 
   /** this method is invoked when the user run the command route. */
