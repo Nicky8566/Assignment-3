@@ -84,10 +84,9 @@ public class MapEngine {
         return country;
       } catch (CountryNotFoundException e) {
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
-      }catch (IllegalArgumentException e) {
+      } catch (IllegalArgumentException e) {
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
-    }
-      
+      }
     }
   }
 
@@ -95,6 +94,15 @@ public class MapEngine {
     if (!countiresInfo.containsKey(country)) {
       throw new CountryNotFoundException(country);
     }
+  }
+
+  private boolean isValidCountryName(String country) {
+    for (char c : country.toCharArray()) {
+      if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /** this method is invoked when the user run the command route. */
