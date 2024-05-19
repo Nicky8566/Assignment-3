@@ -1,10 +1,13 @@
 package nz.ac.auckland.se281;
 
+import static nz.ac.auckland.se281.Utils.capitalizeFirstLetterOfEachWord;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import nz.ac.auckland.se281.Exceptions.CountryNotFoundException;
+// import the utils method to capitalize the first letter of each word
 
 /** This class is the main entry point. */
 public class MapEngine {
@@ -64,7 +67,8 @@ public class MapEngine {
     MessageCli.INSERT_COUNTRY.printMessage();
     while (true) {
       try {
-        String countryName = Utils.scanner.nextLine();
+        String country = Utils.scanner.nextLine();
+        String countryName = capitalizeFirstLetterOfEachWord(country);
         List<String> countryInfo = getCountryInfo(countryName);
         MessageCli.COUNTRY_INFO.printMessage(countryName, countryInfo.get(0), countryInfo.get(1));
         break;
@@ -76,7 +80,7 @@ public class MapEngine {
 
   private List<String> getCountryInfo(String countryName) throws CountryNotFoundException {
     if (!countiresInfo.containsKey(countryName)) {
-      throw new CountryNotFoundException("Country not found: " + countryName);
+      throw new CountryNotFoundException(countryName);
     }
     return countiresInfo.get(countryName);
   }
