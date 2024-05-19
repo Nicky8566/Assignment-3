@@ -84,7 +84,10 @@ public class MapEngine {
         return country;
       } catch (CountryNotFoundException e) {
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
-      }
+      }catch (IllegalArgumentException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
+    }
+      
     }
   }
 
