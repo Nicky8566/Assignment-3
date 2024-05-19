@@ -17,6 +17,8 @@ public class MapEngine {
   private String taxFees;
   private Map<String, List<String>> countiresInfo;
   private Map<String, List<String>> adjacenciesInfo;
+  private String source;
+  private String destination;
 
   public MapEngine() {
     // add other code here if you want
@@ -70,8 +72,11 @@ public class MapEngine {
       try {
         String country = Utils.scanner.nextLine();
         String countryName = capitalizeFirstLetterOfEachWord(country);
-        List<String> countryInfo = getCountryInfo(countryName);
-        MessageCli.COUNTRY_INFO.printMessage(countryName, countryInfo.get(0), countryInfo.get(1));
+        getCountryInfo(countryName);
+        MessageCli.COUNTRY_INFO.printMessage(
+            countryName,
+            countiresInfo.get(countryName).get(0),
+            countiresInfo.get(countryName).get(1));
         break;
       } catch (CountryNotFoundException e) {
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
@@ -79,13 +84,35 @@ public class MapEngine {
     }
   }
 
-  private List<String> getCountryInfo(String countryName) throws CountryNotFoundException {
+  private void getCountryInfo(String countryName) throws CountryNotFoundException {
     if (!countiresInfo.containsKey(countryName)) {
       throw new CountryNotFoundException(countryName);
     }
-    return countiresInfo.get(countryName);
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {}
+  public void showRoute() {
+    MessageCli.INSERT_SOURCE.printMessage();
+    while (true) {
+      try {
+        source = Utils.scanner.nextLine();
+        source = capitalizeFirstLetterOfEachWord(source);
+        getCountryInfo(source);
+        break;
+      } catch (CountryNotFoundException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
+      }
+    }
+    MessageCli.INSERT_DESTINATION.printMessage();
+    while (true) {
+      try {
+        destination = Utils.scanner.nextLine();
+        destination = capitalizeFirstLetterOfEachWord(destination);
+        getCountryInfo(destination);
+        break;
+      } catch (CountryNotFoundException e) {
+        MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
+      }
+    }
+  }
 }
