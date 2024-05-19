@@ -48,8 +48,8 @@ public class MapEngine {
       // create a new adjacency object with the 2 parts
       country = parts[0];
       List<String> adjCountries = new ArrayList<>();
-      for (String adj : parts) {
-        adjCountries.add(adj);
+      for (int i = 1; i < parts.length; i++) {
+        adjCountries.add(parts[i]);
       }
       // add the adjacency object to the hashmap
       adjacenciesInfo.put(country, adjCountries);
@@ -61,8 +61,8 @@ public class MapEngine {
     // add code here
     // get the country name from the user
     String countryName = Utils.scanner.nextLine();
-    MessageCli.COUNTRY_INFO.printMessage(countryName, countiresInfo.get(countryName).get(0),
-        countiresInfo.get(countryName).get(1));
+    MessageCli.COUNTRY_INFO.printMessage(
+        countryName, countiresInfo.get(countryName).get(0), countiresInfo.get(countryName).get(1));
   }
 
   /** this method is invoked when the user run the command route. */
