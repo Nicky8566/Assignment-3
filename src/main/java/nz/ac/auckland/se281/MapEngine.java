@@ -12,9 +12,6 @@ import nz.ac.auckland.se281.Exceptions.CountryNotFoundException;
 
 /** This class is the main entry point. */
 public class MapEngine {
-  private String country;
-  private String continent;
-  private String taxFees;
   private Map<String, List<String>> countiresInfo;
   private Map<String, List<String>> adjacenciesInfo;
 
@@ -37,9 +34,9 @@ public class MapEngine {
       // split the sountry string when theres a , into 3 parts
       String[] parts = c.split(",");
       // create a new country object with the 3 parts
-      country = parts[0];
-      continent = parts[1];
-      taxFees = parts[2];
+      String country = parts[0];
+      String continent = parts[1];
+      String taxFees = parts[2];
       List<String> info = new ArrayList<>();
       info.add(continent);
       info.add(taxFees);
@@ -51,7 +48,7 @@ public class MapEngine {
       // split the adjacency string when theres a , into 2 parts
       String[] parts = a.split(",");
       // create a new adjacency object with the 2 parts
-      country = parts[0];
+      String country = parts[0];
       List<String> adjCountries = new ArrayList<>();
       for (int i = 1; i < parts.length; i++) {
         adjCountries.add(parts[i]);
@@ -74,15 +71,14 @@ public class MapEngine {
   private String getValidCountry() {
     while (true) {
       try {
-        country = Utils.scanner.nextLine();
+        String country = Utils.scanner.nextLine();
         country = capitalizeFirstLetterOfEachWord(country);
         validateCountryExists(country);
-        break;
+        return country;
       } catch (CountryNotFoundException e) {
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
       }
     }
-    return country;
   }
 
   private void validateCountryExists(String country) throws CountryNotFoundException {
