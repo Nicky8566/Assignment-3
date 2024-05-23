@@ -79,29 +79,36 @@ public class MapEngine {
   private String getValidCountry() {
     while (true) {
       try {
+        // try to return the country name
         String country = Utils.scanner.nextLine();
         country = capitalizeFirstLetterOfEachWord(country);
         validateCountryExists(country);
         return country;
       } catch (CountryNotFoundException e) {
+        // catch the invalid country exception
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
       } catch (IllegalArgumentException e) {
+        // catch the invalid country name exception
         MessageCli.INVALID_COUNTRY.printMessage(e.getMessage());
       }
     }
   }
 
   private void validateCountryExists(String country) throws CountryNotFoundException {
+    // if the country is not in the hashmap throw an exception
     if (!countiresInfo.containsKey(country)) {
       throw new CountryNotFoundException(country);
     }
+    // if the country name is invalid throw an exception
     if (!isValidCountryName(country)) {
       throw new IllegalArgumentException(country);
     }
   }
 
   private boolean isValidCountryName(String country) {
+    // check if the country name is valid
     for (char c : country.toCharArray()) {
+      // check if the letter is a letter or a whitespace
       if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
         return false;
       }
