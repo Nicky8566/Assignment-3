@@ -10,21 +10,17 @@ import java.util.Map;
 import java.util.Queue;
 
 public class Graph<T> {
-  private HashSet<String> visitedContinents;
-  private int totalTaxFees;
-  MapEngine mapEngine = new MapEngine();
+  private MapEngine mapEngine = new MapEngine();
   private Map<String, List<String>> countiresInfo = mapEngine.getCountiresInfo();
   private Map<String, List<String>> adjacenciesInfo = mapEngine.getAdjacenciesInfo();
 
-  public List<String> shortestPathBFS(String start, String end) {
-
-    List<String> path = new ArrayList<>();
+  public void shortestPathBFS(String start, String end) {
     Queue<List<String>> queue = new LinkedList<>(); // Queue to hold paths
     Map<String, Boolean> visited = new HashMap<>(); // Tracks visited nodes
 
-    // setup visited contients and total tax fees for the additional info
-    visitedContinents = new LinkedHashSet<>();
-    totalTaxFees = 0;
+    // setup visited contients and total tax fees for the additional information
+    HashSet<String> visitedContinents = new LinkedHashSet<>();
+    int totalTaxFees = 0;
     // Start with the path containing only the start node
     List<String> startPath = new ArrayList<>();
     startPath.add(start);
@@ -46,7 +42,9 @@ public class Graph<T> {
           }
           totalTaxFees += Integer.parseInt(countiresInfo.get(country).get(1));
         }
-        return currentPath;
+        MessageCli.ROUTE_INFO.printMessage(currentPath.toString());
+        MessageCli.CONTINENT_INFO.printMessage(visitedContinents.toString());
+        MessageCli.TAX_INFO.printMessage(Integer.toString(totalTaxFees));
       }
 
       // Explore the nodes neighbours/adjacent nodes
@@ -61,7 +59,5 @@ public class Graph<T> {
         }
       }
     }
-    // Return empty path if no path exists
-    return path;
   }
 }
