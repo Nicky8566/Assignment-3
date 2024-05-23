@@ -125,6 +125,6 @@ public class MapEngine {
     String destination = getValidCountry();
     // make a new graph of type string
     Graph<String> graph = new Graph<>();
-    graph.shortestPath(source, destination);
+    graph.findShortestPath(source, destination);
   }
 }
