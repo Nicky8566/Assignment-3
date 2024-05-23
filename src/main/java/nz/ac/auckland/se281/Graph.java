@@ -1,13 +1,12 @@
 package nz.ac.auckland.se281;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 public class Graph<T> {
   private MapEngine mapEngine = new MapEngine();
@@ -21,12 +20,11 @@ public class Graph<T> {
     }
     Queue<List<String>> queue = new LinkedList<>(); // Queue to hold paths
     Map<String, Boolean> visited = new HashMap<>(); // Tracks visited nodes
+    Set<String> visitedContinents = new LinkedHashSet<>(); // Tracks visited continents
+    int totalTaxFees = 0; // set up intial tax fees
 
-    // setup visited contients and total tax fees for the additional information
-    HashSet<String> visitedContinents = new LinkedHashSet<>();
-    int totalTaxFees = 0;
     // Start with the path containing only the start node
-    List<String> startPath = new ArrayList<>();
+    List<String> startPath = new LinkedList<>();
     startPath.add(start);
     queue.add(startPath);
     visited.put(start, true);
@@ -56,7 +54,7 @@ public class Graph<T> {
         if (!visited.containsKey(neighbor)) { // Check if the neighbor has been visited
           visited.put(neighbor, true);
           // Create a new path to check by adding this current node that isnt checked
-          List<String> newPath = new ArrayList<>(currentPath);
+          List<String> newPath = new LinkedList<>(currentPath);
           newPath.add(neighbor);
           // will check if this path is the shortest path
           queue.add(newPath);
