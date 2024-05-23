@@ -15,6 +15,10 @@ public class Graph<T> {
   private Map<String, List<String>> adjacenciesInfo = mapEngine.getAdjacenciesInfo();
 
   public void shortestPathBFS(String start, String end) {
+    if (end.equals(start)) {
+      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+      return;
+    }
     Queue<List<String>> queue = new LinkedList<>(); // Queue to hold paths
     Map<String, Boolean> visited = new HashMap<>(); // Tracks visited nodes
 

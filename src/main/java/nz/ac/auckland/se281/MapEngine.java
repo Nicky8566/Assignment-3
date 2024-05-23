@@ -116,10 +116,6 @@ public class MapEngine {
     String source = getValidCountry();
     MessageCli.INSERT_DESTINATION.printMessage();
     String destination = getValidCountry();
-    if (destination.equals(source)) {
-      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
-      return;
-    }
     // make a new graph of type string
     Graph<String> graph = new Graph<>();
     graph.shortestPathBFS(source, destination);
