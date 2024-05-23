@@ -15,20 +15,20 @@ public class MapEngine {
   private Map<String, List<String>> countiresInfo;
   private Map<String, List<String>> adjacenciesInfo;
 
-  public Map<String, List<String>> getCountiresInfo() {
-    return countiresInfo;
-  }
-
-  public Map<String, List<String>> getAdjacenciesInfo() {
-    return adjacenciesInfo;
-  }
-
   public MapEngine() {
     // add other code here if you want
     // intialize the maps
     countiresInfo = new HashMap<>();
     adjacenciesInfo = new HashMap<>();
     loadMap(); // keep this mehtod invocation
+  }
+
+  public Map<String, List<String>> getCountiresInfo() {
+    return countiresInfo;
+  }
+
+  public Map<String, List<String>> getAdjacenciesInfo() {
+    return adjacenciesInfo;
   }
 
   /** invoked one time only when constracting the MapEngine class. */

@@ -13,6 +13,12 @@ public class Graph<T> {
   private Map<String, List<String>> countiresInfo = mapEngine.getCountiresInfo();
   private Map<String, List<String>> adjacenciesInfo = mapEngine.getAdjacenciesInfo();
 
+  /**
+   * This method finds the shortest path between two nodes in a graph.
+   *
+   * @param start The starting node.
+   * @param end The ending node.
+   */
   public void findShortestPath(String start, String end) {
     if (end.equals(start)) {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
