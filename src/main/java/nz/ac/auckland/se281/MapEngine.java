@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import nz.ac.auckland.se281.Exceptions.CountryNotFoundException;
+import nz.ac.auckland.se281.exceptions.CountryNotFoundException;
 
 // import the utils method to capitalize the first letter of each word
 
@@ -118,6 +118,6 @@ public class MapEngine {
     String destination = getValidCountry();
     // make a new graph of type string
     Graph<String> graph = new Graph<>();
-    graph.shortestPathBFS(source, destination);
+    graph.shortestPath(source, destination);
   }
 }

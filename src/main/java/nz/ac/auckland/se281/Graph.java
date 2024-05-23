@@ -13,7 +13,7 @@ public class Graph<T> {
   private Map<String, List<String>> countiresInfo = mapEngine.getCountiresInfo();
   private Map<String, List<String>> adjacenciesInfo = mapEngine.getAdjacenciesInfo();
 
-  public void shortestPathBFS(String start, String end) {
+  public void shortestPath(String start, String end) {
     if (end.equals(start)) {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
       return;
