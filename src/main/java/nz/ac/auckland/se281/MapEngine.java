@@ -22,6 +22,14 @@ public class MapEngine {
   private HashSet<String> visitedContinents;
   private int totalTaxFees;
 
+  public Map<String, List<String>> getCountiresInfo() {
+    return countiresInfo;
+  }
+
+  public Map<String, List<String>> getAdjacenciesInfo() {
+    return adjacenciesInfo;
+  }
+
   public MapEngine() {
     // add other code here if you want
     // intialize the maps
