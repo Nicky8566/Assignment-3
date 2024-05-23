@@ -79,8 +79,6 @@ public class MapEngine {
     while (true) {
       try {
         String country = Utils.scanner.nextLine();
-        //lower case the input first
-        country = country.toLowerCase();
         country = capitalizeFirstLetterOfEachWord(country);
         validateCountryExists(country);
         return country;
