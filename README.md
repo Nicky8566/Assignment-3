@@ -17,7 +17,7 @@ Project_RiskMap is a game developed as part of the **SOFTENG 281** assignment fo
 - **Map Loading:** Load the game map into the graph structure from a file or predefined data.
 
 ## Installation
-To run **Project_RiskMap** locally, follow these steps:
+To run **Assignment-3-RiskMap** locally, follow these steps:
 
 ### 1. Clone the repository:
 ```sh
